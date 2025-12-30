@@ -61,17 +61,7 @@ CREATE TABLE comments (
 
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    type ENUM(
-        'task_created',
-        'task_updated',
-        'task_deleted',
-        'assigned_to_project',
-        'removed_from_project',
-        'project_deleted',
-        'sprint_created',
-        'sprint_updated',
-        'status_changed'
-    ) NOT NULL,
+    type ENUM('task_created','task_updated','task_deleted','assigned_to_project','removed_from_project','project_deleted','sprint_created','sprint_updated','status_changed') NOT NULL,
     message VARCHAR(255) NOT NULL,
     is_read BOOLEAN DEFAULT FALSE,
     user_id INT NOT NULL,
