@@ -14,8 +14,8 @@ CREATE TABLE projects (
     status ENUM('active','disabled','completed') DEFAULT 'active',
     start_date DATE,
     end_date DATE,
-    user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    chef_id INT NOT NULL,
+    FOREIGN KEY (chef_id) REFERENCES users(id)
 );
 
 CREATE TABLE sprints ( 
@@ -67,3 +67,12 @@ CREATE TABLE notifications (
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+--@block
+DROP TABLE IF EXISTS notifications;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS task_users;
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS sprints;
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS users;

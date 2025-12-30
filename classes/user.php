@@ -1,6 +1,8 @@
 <?php
     namespace Classes;
 
+    use Exception;
+
     abstract class User {
         protected ?int $id = null;
         protected string $email;
@@ -24,24 +26,32 @@
             return $this->email;
         }
         public function setEmail(string $email): void {
-            $this->email = $email;
+            if (filter_var($email , FILTER_VALIDATE_EMAIL)) {
+                $this->email = $email;
+            }
         }
         public function getPassword(): string {
             return $this->password;
         }
         public function setPassword(string $password): void {
-            $this->password = password_hash($password, PASSWORD_DEFAULT);
+            if (!empty($password)) {
+                $this->password = password_hash($password, PASSWORD_DEFAULT);
+            }
         }
         public function getFullName(): string {
             return $this->full_name;
         }
         public function setFullName(string $full_name): void {
-            $this->full_name = $full_name;
+            if (!empty($full_name)) {
+                $this->full_name = $full_name;
+            }
         }
         public function getRole(): string {
             return $this->role;
         }
         protected function setRole(string $role): void {
-            $this->role = $role;
+            if (!empty($role)) {
+                $this->role = $role;
+            }
         }
     }
