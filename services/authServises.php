@@ -1,6 +1,11 @@
 <?php
     namespace Services;
 
+    require_once __DIR__ . '/../classes/user.php';
+    require_once __DIR__ . '/../classes/Admin.php';
+    require_once __DIR__ . '/../classes/Chef.php';
+    require_once __DIR__ . '/../classes/Member.php';
+
     use Classes\User;
     use Classes\Admin;
     use Classes\Chef;

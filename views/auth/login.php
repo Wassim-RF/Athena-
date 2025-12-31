@@ -1,35 +1,4 @@
 <?php
-    require_once __DIR__ . '/../../repositories/userRepositories.php';
-    require_once __DIR__ . '/../../services/authServises.php';
-    require_once __DIR__ . '/../../core/database.php';
-
-    use Repositories\UserRepositories;
-    use Services\AuthServises;
-    $errore = [];
-    $userRepo = new UserRepositories();
-    $AuthServises = new AuthServises($userRepo);
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = $_POST['email_login_upload--input'];
-        $password = $_POST['password_login_upload--input'];
-
-        $user = $AuthServises->login($email , $password);
-        if ($user === null) {
-            $errore[] = "Email ou password n'existe pas !";
-        } else {
-            if ($user->getRole() === 'admin') {
-                header('Location: /adminDashboard');
-                exit();
-            } elseif ($user->getRole() === 'chef') {
-                header('Location: /chefDashboard');
-                exit();
-            } elseif ($user->getRole() === 'member') {
-                header('Location: /memberDashboard');
-                exit();
-            }
-        }
-    }
-
     require_once __DIR__ . '/../../views/layout/header.php'
 ?>
 <body class="w-full h-screen bg-[#F5F8FF] flex justify-center items-center flex-row p-[10%] pb-0 pt-0 overflow-hidden">
@@ -40,11 +9,7 @@
                 <label for="">Adresse email <span class="text-red-500">*</span></label>
                 <div class="w-full flex flex-col">
                     <input type="email" class="outline-none w-full border border-gray-300 p-[3%] rounded-xl transition-all duration-300 focus:border-[#6366F1] focus:ring-4 focus:ring-blue-100" required name="email_login_upload--input">
-                    <?php if (in_array("Email ou password n'existe pas !", $errore)): ?>
-                        <div class="mt-1 text-sm text-red-600">
-                            Email ou mot de passe incorrect.
-                        </div>
-                    <?php endif; ?>
+                    
                     <div class="flex items-center gap-1 mt-2 ml-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         <p class="text-xs text-gray-500 italic">

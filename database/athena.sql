@@ -75,3 +75,6 @@ DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS sprints;
 DROP TABLE IF EXISTS projects;
 DROP TABLE IF EXISTS users;
+
+--@block
+INSERT INTO users (full_name , email , password , role) VALUES ("Wassim Rifi" , "wassim@athena.ma" , "rifi123" , "admin")
