@@ -1,6 +1,4 @@
 <?php
-    session_start();
-
     require_once './core/router.php';
     require_once './core/database.php';
     require_once './repositories/userRepositories.php';
@@ -12,6 +10,7 @@
     $router = new Router();
 
     $router->add('GET', '/', function () {
+        session_start();
         if (isset($_SESSION['user'])) {
             echo "Welcome " . $_SESSION['user']['full_name'];
         } else {
@@ -41,16 +40,31 @@
 
         switch ($user->getRole()) {
             case 'admin':
-                header("Location: admin/Dashboard");
+                header("Location: /admin/Dashboard");
                 break;
             case 'chef':
-                header("Location: chef/Dashboard");
+                header("Location: /chef/Dashboard");
                 break;
             case 'member':
-                header("Location: member/Dashboard");
+                header("Location: /member/Dashboard");
                 break;
         }
         exit();
     });
 
+    $router->add('GET' , '/admin/Dashboard' , function() {
+        require './views/admin/dashboard.php';
+    });
+    
+    $router->add('GET' , '/logout' , function() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $_SESSION = [];
+        
+        session_destroy();
+        header("Location: /");
+        exit();
+    });
     $router->dispatch();

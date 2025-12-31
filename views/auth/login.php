@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . '/../../views/layout/header.php'
+    require_once __DIR__ . '/../../views/layout/head.php'
 ?>
 <body class="w-full h-screen bg-[#F5F8FF] flex justify-center items-center flex-row p-[10%] pb-0 pt-0 overflow-hidden">
     <div class="bg-white w-2/5 h-[90%] rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] p-[2%] flex flex-col gap-5">
