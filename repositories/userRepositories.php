@@ -8,7 +8,7 @@
     class UserRepositories {
         private PDO $pdo;
 
-        public function __construct(PDO $pdo) {
+        public function __construct() {
             $db = new DataBase();
             $this->pdo = $db->connect();
         }
@@ -66,5 +66,22 @@
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute(['full_name' => $full_name]);
             return $stmt->fetchColumn() > 0;
+        }
+        public function countTotalUsers() {
+            $sql = "SELECT COUNT(*) FROM users";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        }
+        public function getUserCountByRole() {
+            $sql = "SELECT role, COUNT(*) as total FROM users GROUP BY role";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stats = [];
+            foreach ($results as $row) {
+                $stats[$row['role']] = (int)$row['total'];
+            }
+            return $stats;
         }
     }
