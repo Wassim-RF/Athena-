@@ -38,7 +38,7 @@
                 'email' => $user->getEmail(),
                 'password' => $user->getPassword(),
                 'role' => $user->getRole(),
-                'id' => $user->getRole()
+                'id' => $user->getId()
             ]);
         }
         public function findAllUsers() {
@@ -83,5 +83,12 @@
                 $stats[$row['role']] = (int)$row['total'];
             }
             return $stats;
+        }
+        public function findUserByEmail(string $email) {
+            $sql = "SELECT * FROM users WHERE email = :email";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['email' => $email]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $user;
         }
     }
