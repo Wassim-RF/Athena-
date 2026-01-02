@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
     require_once './core/router.php';
     require_once './core/database.php';
     require_once './repositories/userRepositories.php';
@@ -7,26 +9,28 @@
     use Repositories\UserRepositories;
     use Services\AuthServises;
 
+    $userRepo = new UserRepositories();
+    $authService = new AuthServises($userRepo);
+
     $router = new Router();
 
     $router->add('GET', '/', function () {
-        session_start();
-        if (isset($_SESSION['user'])) {
-            echo "Welcome " . $_SESSION['user']['full_name'];
-        } else {
+        if (!isset($_SESSION['user'])) {
             header("Location: /login");
             exit();
         }
+    });
+
+    $router->add('GET', '/index.php', function () {
+        header("Location: /login");
+        exit();
     });
 
     $router->add('GET', '/login', function () {
         require './views/auth/login.php';
     });
 
-    $router->add('POST', '/login', function () {
-        $userRepo = new UserRepositories();
-        $authService = new AuthServises($userRepo);
-
+    $router->add('POST', '/login', function () use ($authService) {
         $email = $_POST['email_login_upload--input'] ?? '';
         $password = $_POST['password_login_upload--input'] ?? '';
 
@@ -52,19 +56,14 @@
         exit();
     });
 
-    $router->add('GET' , '/admin/Dashboard' , function() {
+    
+    $router->add('GET' , '/logout' , function() use ($authService) {
+        $authService->logout();
+    });
+
+    $router->add('GET' , '/admin/Dashboard' , function() use ($authService) {
+        $authService->ifISLogin();
         require './views/admin/dashboard.php';
     });
     
-    $router->add('GET' , '/logout' , function() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        $_SESSION = [];
-        
-        session_destroy();
-        header("Location: /");
-        exit();
-    });
     $router->dispatch();

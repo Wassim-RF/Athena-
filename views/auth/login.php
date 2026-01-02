@@ -9,6 +9,12 @@
                 <label for="">Adresse email <span class="text-red-500">*</span></label>
                 <div class="w-full flex flex-col">
                     <input type="email" class="outline-none w-full border border-gray-300 p-[3%] rounded-xl transition-all duration-300 focus:border-[#6366F1] focus:ring-4 focus:ring-blue-100" required name="email_login_upload--input">
+                    <?php if (isset($_SESSION['error'])) : ?>
+                        <p class="text-red-500 text-sm mb-2 ml-1 font-medium">
+                            <?php echo $_SESSION['error'];?>
+                            <?php unset($_SESSION['error']);?>
+                        </p>
+                    <?php endif; ?>
                     
                     <div class="flex items-center gap-1 mt-2 ml-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>

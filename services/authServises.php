@@ -26,7 +26,9 @@
             if ($password !== $user['password']) {
                 return null;
             }
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             $_SESSION['user'] = [
                 'id' => $user['id'],
                 'email' => $user['email'],
@@ -51,5 +53,23 @@
             }
             $user->setId($data['id']);
             return $user;
+        }
+        public function logout() {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            
+            $_SESSION = [];
+            
+            session_destroy();
+            header("Location: /");
+            exit();
+        }
+        public function ifISLogin() {
+            session_start();
+            if (!isset($_SESSION['user'])) {
+                header("Location: /login");
+                exit();
+            }
         }
     }

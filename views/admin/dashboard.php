@@ -5,5 +5,7 @@
     <?php
         require_once __DIR__ . '/../../views/layout/navBar.php';
     ?>
-    <main class="w-[85%] min-h-screen bg-[#F5F8FF]"></main>
+    <main class="w-[85%] min-h-screen bg-[#F5F8FF]">
+        <?php var_dump($_SESSION['user']);?>
+    </main>
 </body>
