@@ -1,6 +1,4 @@
 <?php
-    session_start();
-    
     require_once './core/router.php';
     require_once './core/database.php';
     require_once './repositories/userRepositories.php';
@@ -36,7 +34,7 @@
 
         $user = $authService->login($email, $password);
 
-        if ($user === null) {
+        if (!$user) {
             $_SESSION['error'] = "Email ou mot de passe incorrect";
             header("Location: /login");
             exit();
@@ -44,13 +42,13 @@
 
         switch ($user->getRole()) {
             case 'admin':
-                header("Location: /admin/Dashboard");
+                header("Location: /admin/dashboard");
                 break;
             case 'chef':
-                header("Location: /chef/Dashboard");
+                header("Location: /chef/dashboard");
                 break;
             case 'member':
-                header("Location: /member/Dashboard");
+                header("Location: /member/dashboard");
                 break;
         }
         exit();
@@ -61,7 +59,7 @@
         $authService->logout();
     });
 
-    $router->add('GET' , '/admin/Dashboard' , function() use ($authService) {
+    $router->add('GET' , '/admin/dashboard' , function() use ($authService) {
         $authService->ifISLogin();
         require './views/admin/dashboard.php';
     });
