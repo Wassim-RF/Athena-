@@ -37,6 +37,7 @@
             ];
             return $this->createUserObject($user);
         }
+        
         public function createUserObject(array $data) {
             switch ($data['role']) {
                 case 'admin':
@@ -54,6 +55,7 @@
             $user->setId($data['id']);
             return $user;
         }
+
         public function logout() {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
@@ -65,6 +67,7 @@
             header("Location: /");
             exit();
         }
+
         public function ifISLogin() {
             session_start();
             if (!isset($_SESSION['user'])) {
