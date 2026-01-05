@@ -3,12 +3,18 @@
     require_once './core/database.php';
     require_once './repositories/userRepositories.php';
     require_once './services/authServises.php';
+    require_once './repositories/projectRepositories.php';
+    require_once './services/projectServises.php';
 
     use Repositories\UserRepositories;
     use Services\AuthServises;
+    use Repositories\ProjectRepositories;
+    use Services\ProjectServises;
 
     $userRepo = new UserRepositories();
     $authService = new AuthServises($userRepo);
+    $projectRepo = new ProjectRepositories();
+    $projectService = new ProjectServises($projectRepo);
 
     $router = new Router();
 
@@ -25,6 +31,7 @@
     });
 
     $router->add('GET', '/login', function () {
+        session_start();
         require './views/auth/login.php';
     });
 
@@ -35,6 +42,7 @@
         $user = $authService->login($email, $password);
 
         if (!$user) {
+            session_start();
             $_SESSION['error'] = "Email ou mot de passe incorrect";
             header("Location: /login");
             exit();
@@ -63,5 +71,20 @@
         $authService->ifISLogin();
         require './views/admin/dashboard.php';
     });
+
+    $router->add('GET' , '/projects' , function() use ($projectService) {
+        session_start();
+        require './views/pages/project/projects.php';
+    });
     
+    $router->add('GET' , '/projects/ajouteProject' , function () use ($projectService) {
+        session_start();
+        if ($_SESSION['user']['role'] === 'member') {
+            $_SESSION['errore'] = "Vous n'avez pas l'acces a cette page";
+            header("Location: /");
+            exit();
+        }
+        require './views/pages/project/createProject.php';
+    });
+
     $router->dispatch();
