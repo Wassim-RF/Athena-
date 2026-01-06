@@ -76,6 +76,19 @@
         session_start();
         require './views/pages/project/projects.php';
     });
+
+    $router->add('POST' , '/projects' , function() use ($projectService) {
+        session_start();
+        $projectTitle = $_POST['input_add_project--Title'];
+        $projectStatu = $_POST['input_add_project--Status'];
+        $projectDescription = $_POST['input_add_project--Description'];
+        $projectStartDate = new DateTime($_POST['input_add_project--StartDate']);
+        $projectEndDate = new DateTime($_POST['input_add_project--EndDate']);
+
+        $projectService->ajouteProject($projectTitle , $projectStatu , $projectDescription , $projectStartDate , $projectEndDate , $_SESSION['user']['id']);
+
+        require './views/pages/project/projects.php';
+    });
     
     $router->add('GET' , '/projects/ajouteProject' , function () use ($projectService) {
         session_start();

@@ -19,8 +19,8 @@
                 'title' => $project->getTitle(),
                 'description' => $project->getDescription(),
                 'status' => $project->getStatue(),
-                'start_date' => $project->getStartDate(),
-                'end_date' => $project->getEndDate(),
+                'start_date' => $project->getStartDate()->format('Y-m-d'),
+                'end_date' => $project->getEndDate()->format('Y-m-d'),
                 'chef_id' => $project->getChefId()
             ]);
             $id = (int) $this->pdo->lastInsertId();
