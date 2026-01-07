@@ -40,7 +40,7 @@
             ]);
         }
         public function updateProjectStatue(string $statue , int $id) {
-            $sql = "UPDATE projects SET status = :status WHERE id = :id";
+            $sql = "UPDATE projects SET status = :status WHERE id = ?";
             $stmt = $this->pdo->prepare($sql);
             return $stmt->execute([
                 'status' => $statue,
@@ -66,4 +66,12 @@
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+        public function sprintNumberInProject(int $id) {
+            $sql = "SELECT COUNT(*) as sprintNumberInProject FROM sprints WHERE project_id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            return $stmt->fetchColumn();
+        }
+
+        
     }

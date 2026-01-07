@@ -22,4 +22,12 @@
             $project = new Project($title , $description , $startDate , $endDate , $statu , $chef_id);
             return $this->projectRepositories->createProject($project);
         }
+        
+        public function showProjectById(int $id) {
+            return $this->projectRepositories->findProjectById($id);
+        }
+
+        public function sprintNumberInProject(int $id) {
+            return $this->projectRepositories->sprintNumberInProject($id);
+        }
     }

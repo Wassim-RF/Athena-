@@ -5,16 +5,22 @@
     require_once './services/authServises.php';
     require_once './repositories/projectRepositories.php';
     require_once './services/projectServises.php';
+    require_once './repositories/sprintRepositories.php';
+    require_once './services/sprintServises.php';
 
     use Repositories\UserRepositories;
     use Services\AuthServises;
     use Repositories\ProjectRepositories;
     use Services\ProjectServises;
+    use Repositories\SprintRepositories;
+    use Services\SprintServises;
 
     $userRepo = new UserRepositories();
     $authService = new AuthServises($userRepo);
     $projectRepo = new ProjectRepositories();
     $projectService = new ProjectServises($projectRepo);
+    $sprintRepo = new SprintRepositories();
+    $sprintService = new SprintServises($sprintRepo);
 
     $router = new Router();
 
@@ -90,6 +96,14 @@
         require './views/pages/project/projects.php';
     });
     
+    $router->add('GET' , '/project/show' , function() use ($projectService , $sprintService) {
+        session_start();
+        $id = $_GET['id'];
+        $project = $projectService->showProjectById($id);
+        $sprints = $sprintService->sprintInProject($id);
+        require './views/pages/project/showProject.php';
+    });
+
     $router->add('GET' , '/projects/ajouteProject' , function () use ($projectService) {
         session_start();
         if ($_SESSION['user']['role'] === 'member') {

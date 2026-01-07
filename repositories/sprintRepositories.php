@@ -52,4 +52,10 @@
             $stmt = $this->pdo->prepare($sql);
             return $stmt->execute(['id' => $id]);
         }
+        public function sprintInProject(int $id) {
+            $sql = "SELECT * FROM sprints WHERE id = :id";
+            $stmt  = $this->pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
