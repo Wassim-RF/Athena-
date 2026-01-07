@@ -51,7 +51,7 @@
                     <div class="flex items-center gap-2">
                         <h2 class="text-xl font-semibold tracking-tight text-gray-900">Sprints</h2>
                     </div>
-                    <a href="/project/show?id=<?= $id ?>/addSprint" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-all bg-indigo-600 rounded-lg hover:bg-indigo-700 shadow-sm hover:shadow-md active:scale-95">
+                    <a href="/project/addSprint?id=<?= $id ?>" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-all bg-indigo-600 rounded-lg hover:bg-indigo-700 shadow-sm hover:shadow-md active:scale-95">
                         + Ajouter un sprint
                     </a>
                 </div>

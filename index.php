@@ -99,9 +99,15 @@
     $router->add('GET' , '/project/show' , function() use ($projectService , $sprintService) {
         session_start();
         $id = $_GET['id'];
-        $project = $projectService->showProjectById($id);
-        $sprints = $sprintService->sprintInProject($id);
+        $project = $projectService->showProjectById( (int) $id);
+        $sprints = $sprintService->sprintInProject( (int) $id);
         require './views/pages/project/showProject.php';
+    });
+
+    $router->add('GET' , '/project/addSprint' , function() use ($projectService , $sprintService) {
+        session_start();
+        $id = $_GET['id'];
+        require './views/pages/sprints/addSprint.php';
     });
 
     $router->add('GET' , '/projects/ajouteProject' , function () use ($projectService) {

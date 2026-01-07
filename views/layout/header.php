@@ -17,7 +17,7 @@
             </span>
         </button>
 
-        <div class="flex items-center gap-3 cursor-pointer border-l border-gray-200 pl-5 p-1 hover:bg-gray-100 hover:border-0">
+        <a href="/profile" class="flex items-center gap-3 cursor-pointer border-l border-gray-200 pl-5 p-1 hover:bg-gray-100 hover:border-0">
             <div class="text-right hidden sm:block">
                 <div class="text-sm font-semibold text-gray-900"><?= $_SESSION['user']['full_name'] ?></div>
                 <div class="text-xs text-gray-500"><?= $_SESSION['user']['role'] ?></div>
@@ -25,6 +25,6 @@
             <div class="flex items-center justify-center w-7 h-7 rounded-full bg-linear-to-tr from-purple-600 to-indigo-600 text-white font-medium text-lg ring-2 ring-white shadow-sm">
                 <?= $_SESSION['user']['full_name'][0] ?>
             </div>
-        </div>
+        </a>
     </div>
 </header>
