@@ -5,6 +5,11 @@
         'disabled' => 'text-gray-500 bg-gray-100',
         'completed' => 'text-blue-600 bg-blue-50',
     ];
+    $sprintStatuses = [
+        'upcoming'  => 'bg-yellow-100 text-yellow-700',
+        'active'    => 'bg-green-100 text-green-700',
+        'completed' => 'bg-blue-100 text-blue-700',
+    ];
 ?>
 <body class="w-full min-h-screen flex flex-row">
     <?php
@@ -46,7 +51,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="w-full bg-white p-5 border border-gray-200 shadow-sm rounded-2xl">
+            <div class="w-full bg-white p-5 border border-gray-200 shadow-sm rounded-2xl flex flex-col gap-5">
                 <div class="flex items-center justify-between p-4 bg-white border-b border-gray-100">
                     <div class="flex items-center gap-2">
                         <h2 class="text-xl font-semibold tracking-tight text-gray-900">Sprints</h2>
@@ -55,16 +60,16 @@
                         + Ajouter un sprint
                     </a>
                 </div>
-                <?php foreach ($sprints as $sprint) : ?>
-                    <div class="bg-white rounded-xl p-5 border border-gray-200 hover:border-blue-500 cursor-pointer">
+                <?php foreach ($sprints as $index => $sprint) : ?>
+                    <a href="/sprint/show?id=<?= $sprint['id'] ?>" class="bg-white rounded-xl p-5 border border-gray-200 hover:border-blue-500 cursor-pointer">
                         <div class="flex items-center justify-between">
                             <div>
                                 <h2 class="text-lg font-semibold text-gray-900">
-                                    Sprint 1: <?= $sprint['name'] ?>
+                                    Sprint <?= $index + 1 ?>: <?= $sprint['name'] ?>
                                 </h2>
                                 <div class="flex items-center gap-2 mt-1 text-sm text-gray-500">
-                                    <span class="bg-green-100 text-green-600 px-2 py-0.5 rounded-full text-xs font-medium">
-                                        active
+                                    <span class="inline-block px-3 py-1 text-sm font-medium rounded-full <?= $sprintStatuses[$sprint['status']] ?? '' ?>">
+                                        <?= ucfirst($sprint['status']) ?>
                                     </span>
                                     <span class="flex items-center gap-1">
                                         📅 <?= $sprint['start_date'] ?> - <?= $sprint['end_date'] ?>
@@ -84,7 +89,7 @@
                                 <div class="bg-blue-500 h-2 rounded-full w-1/4"></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </section>

@@ -110,6 +110,27 @@
         require './views/pages/sprints/addSprint.php';
     });
 
+    $router->add('GET' , '/sprint/show' , function() use ($projectService , $sprintService) {
+        session_start();
+        $id = $_GET['id'];
+        require './views/pages/sprints/showSprint.php';
+    });
+
+    $router->add('POST' , '/project/addSprint' , function() use ($projectService , $sprintService) {
+        session_start();
+        $id = $_GET['id'];
+
+        $sprintName = $_POST['input_add_sprint--name'];
+        $sprintStatus = $_POST['input_add_sprint--Status'];
+        $sprintDescription = $_POST['input_add_sprint--Description'];
+        $sprintStartDate = new DateTime($_POST['input_add_sprint--StartDate']);
+        $sprintEndDate = new DateTime($_POST['input_add_sprint--EndDate']);
+
+        $sprintService->ajouteSprint($sprintName , $sprintStatus , $sprintDescription  , $sprintStartDate , $sprintEndDate , (int) $id);
+        header("Location: /project/show?id={$id}");
+        exit();
+    });
+
     $router->add('GET' , '/projects/ajouteProject' , function () use ($projectService) {
         session_start();
         if ($_SESSION['user']['role'] === 'member') {

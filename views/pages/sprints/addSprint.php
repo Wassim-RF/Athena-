@@ -20,44 +20,44 @@
                     <p class="text-sm text-gray-400">Ajouter des noveaux sprint a votre project...</p>
                 </div>
             </div>
-            <form method="POST" action="/projects" class="w-full p-[2%] bg-white rounded-4xl shadow-sm flex flex-col gap-10">
+            <form method="POST" action="/project/addSprint?id=<?= $id ?>" class="w-full p-[2%] bg-white rounded-4xl shadow-sm flex flex-col gap-10">
                 <div class="grid grid-cols-2 gap-5">
                     <div class="flex flex-col gap-2">
                         <label for="">Name <span class="text-red-500">*</span></label>
                         <div class="w-full bg-gray-100 rounded-2xl p-[2%] flex items-center">
-                            <input type="text" name="input_add_project--Title" class="w-full outline-0" minlength="8" maxlength="50" id="project_Add--title--input" placeholder="Foundation..." required>
-                            <p class="text-xs text-gray-400 text-end" id="letter_number--project--Title--input">0/100</p>
+                            <input type="text" name="input_add_sprint--name" class="w-full outline-0" minlength="8" maxlength="50" id="sprint_Add--name--input" placeholder="Foundation..." required>
+                            <p class="text-xs text-gray-400 text-end" id="letter_number--sprint--name--input">0/100</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <label for="">Statu du projet <span class="text-red-500">*</span></label>
+                        <label for="">Statu du sprint <span class="text-red-500">*</span></label>
                         <div class="w-full bg-gray-100 rounded-2xl p-[2%] flex items-center">
-                            <select id="" class="w-full outline-0" required name="input_add_project--Status">
-                                <option value="active" selected>Active</option>
-                                <option value="disabled">Disabled</option>
+                            <select id="" class="w-full outline-0" required name="input_add_sprint--Status">
+                                <option value="upcoming" selected>Upcoming</option>
+                                <option value="active">Active</option>
                                 <option value="completed">Completed</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label for="">Description du projet <span class="text-red-500">*</span></label>
+                    <label for="">Description du sprint <span class="text-red-500">*</span></label>
                     <div class="w-full bg-gray-100 rounded-2xl p-[2%] flex flex-col h-32 gap-2">
-                        <textarea name="input_add_project--Description" class="w-full outline-0 h-full" id="project_Add--Description--input" minlength="0" maxlength="1000" placeholder="Building a modern e-commerce platform with React and Node.js..."></textarea>
-                        <p class="text-xs text-gray-400 text-end" id="letter_number--project--Description--input">0/1000</p>
+                        <textarea name="input_add_sprint--Description" class="w-full outline-0 h-full" id="sprint_Add--Description--input" minlength="0" maxlength="1000" placeholder="Creeation du structure des files..."></textarea>
+                        <p class="text-xs text-gray-400 text-end" id="letter_number--sprint--Description--input">0/1000</p>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-5">
                     <div class="flex flex-col gap-2">
                         <label for="">Date de deput <span class="text-red-500">*</span></label>
                         <div class="w-full bg-gray-100 rounded-2xl p-[2%] flex items-center">
-                            <input type="date" name="input_add_project--StartDate" id="" class="w-full outline-0" required>
+                            <input type="date" name="input_add_sprint--StartDate" id="" class="w-full outline-0" required>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="">Date de terminer <span class="text-red-500">*</span></label>
                         <div class="w-full bg-gray-100 rounded-2xl p-[2%] flex items-center">
-                            <input type="date" name="input_add_project--EndDate" id="" class="w-full outline-0" required>
+                            <input type="date" name="input_add_sprint--EndDate" id="" class="w-full outline-0" required>
                         </div>
                     </div>
                 </div>

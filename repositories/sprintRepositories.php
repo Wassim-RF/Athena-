@@ -20,8 +20,8 @@
                 'name' => $sprint->getName(),
                 'description' => $sprint->getDescription(),
                 'status' => $sprint->getStatue(),
-                'start_date' => $sprint->getStartDate(),
-                'end_date' => $sprint->getEndDate(),
+                'start_date' => $sprint->getStartDate()->format('Y-m-d'),
+                'end_date' => $sprint->getEndDate()->format('Y-m-d'),
                 'project_id' =>$sprint->getProjectId()
             ]); 
             $id = (int) $this->pdo->lastInsertId();
@@ -53,7 +53,7 @@
             return $stmt->execute(['id' => $id]);
         }
         public function sprintInProject(int $id) {
-            $sql = "SELECT * FROM sprints WHERE id = :id";
+            $sql = "SELECT * FROM sprints WHERE project_id = :id";
             $stmt  = $this->pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
