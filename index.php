@@ -116,11 +116,27 @@
         require './views/pages/sprints/addSprint.php';
     });
 
+    $router->add('GET' , '/sprint/ajouteTask' , function() use ($projectService , $sprintService) {
+        session_start();
+        require './views/pages/tasks/addTasks.php';
+    });
+
+    $router->add('POST' , '/sprint/ajouteTask' , function() use ($projectService , $sprintService) {
+        session_start();
+        $title       = $_GET['title'];
+        $status      = $_GET['status'];
+        $priority    = $_GET['priority'];
+        $description = $_GET['description'];
+    });
+
     $router->add('GET' , '/sprint/show' , function() use ($sprintService , $taskService) {
         session_start();
         $taskNumber = $_GET['task'];
         $id = $_GET['id'];
         $sprint = $sprintService->sprintById((int) $id);
+        $todoTasks = $taskService->todoTaskiNSprint($id);
+        $inProgresseTasks = $taskService->inProgresseTaskiNSprint($id);
+        $doneTasks = $taskService->doneTaskiNSprint($id);
         require './views/pages/sprints/showSprint.php';
     });
 

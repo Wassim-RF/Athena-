@@ -1,6 +1,7 @@
 <?php
     namespace Repositories;
 
+    use Classes\Task;
     use Core\DataBase;
     use PDO;
 
@@ -10,6 +11,31 @@
         public function __construct() {
             $db = new DataBase();
             $this->pdo = $db->connect();
+        }
+
+        public function createTask(Task $task) {
+            $sql = "
+                INSERT INTO tasks 
+                (title, description, statue, priority, type, created_by, sprint_id)
+                VALUES 
+                (:title, :description, :statue, :priority, :type, :created_by, :sprint_id)
+            ";
+
+            $stmt = $this->pdo->prepare($sql);
+
+            $stmt->execute([
+                'title'       => $task->getTitle(),
+                'description' => $task->getDescription(),
+                'status'      => $task->getStatue(),
+                'priority'    => $task->getPriority(),
+                'type'        => $task->getType(),
+                'created_by'  => $task->getCreatedBy(),
+                'sprint_id'   => $task->getSprintId()
+            ]);
+
+            $id = (int) $this->pdo->lastInsertId();
+            $task->setId($id);
+            return $task;
         }
 
         public function todoTaskNumBySprint(int $id) {
@@ -29,5 +55,24 @@
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             return $stmt->fetchColumn();
+        }
+
+        public function todoTaskInSprint(int $id) {
+            $sql = "SELECT * FROM tasks WHERE status = 'todo' AND sprint_id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function inProgresseTaskInSprint(int $id) {
+            $sql = "SELECT * FROM tasks WHERE status = 'in_progress' AND sprint_id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function doneTaskInSprint(int $id) {
+            $sql = "SELECT * FROM tasks WHERE status = 'done' AND sprint_id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
