@@ -22,4 +22,7 @@
         public function sprintInProject(int $id) {
             return $this->sprintRepositories->sprintInProject($id);
         }
+        public function sprintById(int $id) {
+            return $this->sprintRepositories->sprintById($id);
+        }
     }

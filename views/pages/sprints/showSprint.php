@@ -1,4 +1,9 @@
 <?php
+    $sprintStatuses = [
+        'upcoming'  => 'bg-yellow-100 text-yellow-700',
+        'active'    => 'bg-green-100 text-green-700',
+        'completed' => 'bg-blue-100 text-blue-700',
+    ];
     require_once __DIR__ . '/../../../views/layout/head.php';
 ?>
 <body class="w-full min-h-screen flex flex-row">
@@ -18,45 +23,45 @@
             </div>
             <div class="w-full">
                 <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                    <div>
-                        <h1 class="text-3xl font-bold mb-1">Sprint 1: Foundation</h1>
-                        <p class="text-gray-500 mb-4">E-Commerce Platform</p>
+                    <div class="flex flex-col gap-5">
+                        <h1 class="text-3xl font-bold mb-1">Sprint <?= $taskNumber ?>: <?= $sprint['name'] ?></h1>
                         
                         <div class="flex items-center gap-3 text-sm">
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">active</span>
+                            <span class="inline-block px-3 py-1 text-sm font-medium rounded-full <?= $sprintStatuses[$sprint['status']] ?? '' ?>">
+                                <?= ucfirst($sprint['status']) ?>
+                            </span>
                             <span class="text-gray-500 flex items-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                12/16/2024 - 12/30/2024
+                                <?= $sprint['start_date'] . " - " . $sprint['end_date'] ?>
                             </span>
                         </div>
                     </div>
-                    <button class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        New Task
-                    </button>
+                    <a href="/sprint/ajouteTask" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-sm">
+                        + New Task
+                    </a>
                 </div>
             </div>
 
             <div class="w-full grid grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center">
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center hover:scale-[1.01] hover:shadow-lg w-full">
                     <h3 class="text-gray-500 font-medium mb-1">To Do</h3>
-                    <span class="text-3xl font-bold text-gray-900">2</span>
+                    <span class="text-3xl font-bold text-gray-900"><?= $taskService->todoTaskNumBySprint($id) ?></span>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center">
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center hover:scale-[1.01] hover:shadow-lg w-full">
                     <h3 class="text-gray-500 font-medium mb-1">In Progress</h3>
-                    <span class="text-3xl font-bold text-gray-900">1</span>
+                    <span class="text-3xl font-bold text-gray-900"><?= $taskService->inProgresseTaskNumBySprint($id) ?></span>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center">
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center hover:scale-[1.01] hover:shadow-lg w-full">
                     <h3 class="text-gray-500 font-medium mb-1">Done</h3>
-                    <span class="text-3xl font-bold text-gray-900">1</span>
+                    <span class="text-3xl font-bold text-gray-900"><?= $taskService->doneTaskNumBySprint($id) ?></span>
                 </div>
             </div>
             <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                <div class="bg-gray-100 p-4 rounded-xl min-h-[500px]">
+                <div class="bg-gray-100 p-4 rounded-xl">
                     <div class="flex justify-between items-center mb-4 px-2">
                         <h2 class="font-bold text-gray-700">To Do</h2>
-                        <span class="text-gray-500 text-sm font-medium">2</span>
+                        <span class="text-gray-500 text-sm font-medium"><?= $taskService->todoTaskNumBySprint($id) ?></span>
                     </div>
 
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer">
@@ -88,10 +93,10 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-100 p-4 rounded-xl min-h-[500px]">
+                <div class="bg-gray-100 p-4 rounded-xl">
                     <div class="flex justify-between items-center mb-4 px-2">
                         <h2 class="font-bold text-gray-700">In Progress</h2>
-                        <span class="text-gray-500 text-sm font-medium">1</span>
+                        <span class="text-gray-500 text-sm font-medium"><?= $taskService->inProgresseTaskNumBySprint($id) ?></span>
                     </div>
 
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer">
@@ -109,10 +114,10 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-100 p-4 rounded-xl min-h-[500px]">
+                <div class="bg-gray-100 p-4 rounded-xl">
                     <div class="flex justify-between items-center mb-4 px-2">
                         <h2 class="font-bold text-gray-700">Done</h2>
-                        <span class="text-gray-500 text-sm font-medium">1</span>
+                        <span class="text-gray-500 text-sm font-medium"><?= $taskService->doneTaskNumBySprint($id) ?></span>
                     </div>
 
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer">

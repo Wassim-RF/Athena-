@@ -1,15 +1,17 @@
 <?php
-    require_once __DIR__ . '/../../../views/layout/head.php';
     $statuses = [
         'active' => 'text-emerald-600 bg-emerald-50',
         'disabled' => 'text-gray-500 bg-gray-100',
         'completed' => 'text-blue-600 bg-blue-50',
     ];
+    
     $sprintStatuses = [
         'upcoming'  => 'bg-yellow-100 text-yellow-700',
         'active'    => 'bg-green-100 text-green-700',
         'completed' => 'bg-blue-100 text-blue-700',
     ];
+    
+    require_once __DIR__ . '/../../../views/layout/head.php';
 ?>
 <body class="w-full min-h-screen flex flex-row">
     <?php
@@ -61,7 +63,7 @@
                     </a>
                 </div>
                 <?php foreach ($sprints as $index => $sprint) : ?>
-                    <a href="/sprint/show?id=<?= $sprint['id'] ?>" class="bg-white rounded-xl p-5 border border-gray-200 hover:border-blue-500 cursor-pointer">
+                    <a href="/sprint/show?task=<?= $index + 1 ?>&id=<?= $sprint['id'] ?>" class="bg-white rounded-xl p-5 border border-gray-200 hover:border-blue-500 cursor-pointer">
                         <div class="flex items-center justify-between">
                             <div>
                                 <h2 class="text-lg font-semibold text-gray-900">

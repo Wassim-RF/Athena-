@@ -7,6 +7,8 @@
     require_once './services/projectServises.php';
     require_once './repositories/sprintRepositories.php';
     require_once './services/sprintServises.php';
+    require_once './repositories/taskRepositories.php';
+    require_once './services/taskServises.php';
 
     use Repositories\UserRepositories;
     use Services\AuthServises;
@@ -14,6 +16,8 @@
     use Services\ProjectServises;
     use Repositories\SprintRepositories;
     use Services\SprintServises;
+    use Repositories\TaskRepositories;
+    use Services\TaskServises;
 
     $userRepo = new UserRepositories();
     $authService = new AuthServises($userRepo);
@@ -21,6 +25,8 @@
     $projectService = new ProjectServises($projectRepo);
     $sprintRepo = new SprintRepositories();
     $sprintService = new SprintServises($sprintRepo);
+    $taskRepo = new TaskRepositories();
+    $taskService = new TaskServises($taskRepo);
 
     $router = new Router();
 
@@ -110,9 +116,11 @@
         require './views/pages/sprints/addSprint.php';
     });
 
-    $router->add('GET' , '/sprint/show' , function() use ($projectService , $sprintService) {
+    $router->add('GET' , '/sprint/show' , function() use ($sprintService , $taskService) {
         session_start();
+        $taskNumber = $_GET['task'];
         $id = $_GET['id'];
+        $sprint = $sprintService->sprintById((int) $id);
         require './views/pages/sprints/showSprint.php';
     });
 
