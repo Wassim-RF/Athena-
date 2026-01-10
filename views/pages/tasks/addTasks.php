@@ -20,7 +20,7 @@
                     <p class="text-sm text-gray-400">Ajouter des noveaux sprint a votre project...</p>
                 </div>
             </div>
-            <form method="GET" action="/task/add" class="w-full p-[2%] bg-white rounded-4xl shadow-sm flex flex-col gap-10">
+            <form method="POST" class="w-full p-[2%] bg-white rounded-4xl shadow-sm flex flex-col gap-10">
                 <div class="flex flex-col gap-2">
                     <label>Task title <span class="text-red-500">*</span></label>
                     <div class="w-full bg-gray-100 rounded-2xl p-[2%] flex items-center">

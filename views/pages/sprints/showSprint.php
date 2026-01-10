@@ -41,7 +41,7 @@
                             </span>
                         </div>
                     </div>
-                    <a href="/sprint/ajouteTask" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-sm">
+                    <a href="/sprint/ajouteTask?id=<?= $sprint['id'] ?>" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-sm">
                         + New Task
                     </a>
                 </div>
@@ -68,9 +68,9 @@
                         <h2 class="font-bold text-gray-700">To Do</h2>
                         <span class="text-gray-500 text-sm font-medium"><?= $taskService->todoTaskNumBySprint($id) ?></span>
                     </div>
-                    <div class="w-full h-full" id="ToDo_task--container">
+                    <div class="w-full h-full" id="ToDo_task--container" data-statue="todo">
                         <?php foreach($todoTasks as $todoTask) : ?>
-                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer">
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer" data-id="<?= $todoTask['id'] ?>">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="font-semibold text-gray-900 leading-snug"><?= $todoTask['title'] ?></h3>
                                     <button class="text-gray-400 hover:text-gray-600">
@@ -92,9 +92,9 @@
                         <h2 class="font-bold text-gray-700">In Progress</h2>
                         <span class="text-gray-500 text-sm font-medium"><?= $taskService->inProgresseTaskNumBySprint($id) ?></span>
                     </div>
-                    <div class="w-full h-full" id="InProgresse_task--container">
+                    <div class="w-full h-full" id="InProgresse_task--container" data-statue="in_progresse">
                         <?php foreach($inProgresseTasks as $inProgresseTask) : ?>
-                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer">
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer" data-id="<?= $inProgresseTask['id'] ?>">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="font-semibold text-gray-900 leading-snug"><?= $inProgresseTask['title'] ?></h3>
                                     <button class="text-gray-400 hover:text-gray-600">
@@ -116,9 +116,9 @@
                         <h2 class="font-bold text-gray-700">Done</h2>
                         <span class="text-gray-500 text-sm font-medium"><?= $taskService->doneTaskNumBySprint($id) ?></span>
                     </div>
-                    <div class="w-full h-full" id="Done_task--container">
+                    <div class="w-full h-full" id="Done_task--container" data-statue="done">
                         <?php foreach($doneTasks as $doneTask) : ?>
-                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer">
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 mb-4 hover:shadow-md transition-shadow cursor-pointer" data-id="<?= $doneTask['id'] ?>">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="font-semibold text-gray-900 leading-snug"><?= $doneTask['title'] ?></h3>
                                     <button class="text-gray-400 hover:text-gray-600">

@@ -121,12 +121,24 @@
         require './views/pages/tasks/addTasks.php';
     });
 
-    $router->add('POST' , '/sprint/ajouteTask' , function() use ($projectService , $sprintService) {
+    $router->add('POST' , '/sprint/ajouteTask' , function() use ($taskService) {
         session_start();
-        $title       = $_GET['title'];
-        $status      = $_GET['status'];
-        $priority    = $_GET['priority'];
-        $description = $_GET['description'];
+        $id = $_GET['id'];
+        $title       = $_POST['title'];
+        $status      = $_POST['status'];
+        $priority    = $_POST['priority'];
+        $description = $_POST['description'];
+
+        if ($_SESSION['user']['role'] === 'member') {
+            $type = "personal";
+        } else {
+            $type = "sprint";
+        }
+
+        $taskService->ajouteTask($title , $description , $status , $priority , $type , $_SESSION['user']['id'] , $id);
+
+        header("Location: /sprint/show");
+        exit();
     });
 
     $router->add('GET' , '/sprint/show' , function() use ($sprintService , $taskService) {
@@ -163,6 +175,17 @@
             exit();
         }
         require './views/pages/project/createProject.php';
+    });
+
+    $router->add('POST', '/task/update-statue', function () use ($taskService) {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $taskService->updateTaskStatue(
+            (int)$data['task_id'],
+            $data['statue']
+        );
+
+        echo json_encode(['success' => true]);
     });
 
     $router->dispatch();

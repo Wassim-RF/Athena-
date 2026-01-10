@@ -1,6 +1,8 @@
 <?php
     namespace Services;
 
+    require_once __DIR__ . '/../classes/task.php';
+
     use Classes\Task;
     use Repositories\TaskRepositories;
 
@@ -34,4 +36,9 @@
         public function doneTaskiNSprint(int $id) {
             return $this->taskRepositories->doneTaskInSprint($id);
         }
+
+        public function updateTaskStatue(int $taskId, string $statue) {
+            return $this->taskRepositories->updateTaskStatue($taskId, $statue);
+        }
+
     }

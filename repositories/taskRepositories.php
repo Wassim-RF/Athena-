@@ -16,9 +16,9 @@
         public function createTask(Task $task) {
             $sql = "
                 INSERT INTO tasks 
-                (title, description, statue, priority, type, created_by, sprint_id)
+                (title, description, status, priority, type, created_by, sprint_id)
                 VALUES 
-                (:title, :description, :statue, :priority, :type, :created_by, :sprint_id)
+                (:title, :description, :status, :priority, :type, :created_by, :sprint_id)
             ";
 
             $stmt = $this->pdo->prepare($sql);
@@ -74,5 +74,15 @@
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function updateTaskStatue(int $taskId, string $statue) {
+            $sql = "UPDATE tasks SET status = :status WHERE id = :id";
+            $stmt = $this->pdo->prepare($sql);
+
+            return $stmt->execute([
+                'status' => $statue,
+                'id'     => $taskId
+            ]);
         }
     }
